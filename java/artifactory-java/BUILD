@@ -79,6 +79,31 @@ docker_build(
     entrypoint = ["/busybox/sh"]
 )
 
+docker_build(
+    name = "artifactory-mssql-java",
+    base = "//java:debug",
+    debs = [
+        packages["libltdl7"],
+        packages["libbz2-1.0"],
+        packages["libattr1"],
+        packages["libacl1"],
+        packages["tar"],
+        packages["dpkg"],
+        packages["install-info"],
+        packages["readline-common"],
+        packages["libreadline7"],
+        packages["odbcinst1debian2"],
+        packages["libodbc1"],
+        packages["unixodbc"]
+    ],
+    stamp = True,
+    tars = [
+        ":passwd",
+        ":group_tar",
+    ],
+    entrypoint = ["/busybox/sh"],
+)
+
 container_test(
     name = "creds_test",
     configs = ["testdata/creds.yaml"],
@@ -102,5 +127,14 @@ container_push(
    format = "Docker",
    registry = "docker.jfrog.io",
    repository = "jfrog/distroless/base/artifactory-java-base",
+   tag =  "adoptopenjdk11-@BUILD_NUMBER@",
+)
+
+container_push(
+   name = "publish-mssql-java",
+   image = ":artifactory-mssql-java",
+   format = "Docker",
+   registry = "docker.jfrog.io",
+   repository = "jfrog/distroless/base/artifactory-mssql-java",
    tag =  "adoptopenjdk11-@BUILD_NUMBER@",
 )

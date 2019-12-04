@@ -106,6 +106,18 @@ dpkg_list(
         "db-util",
         "db5.3-util",
         "libdb5.3",
+        "libltdl7",
+        "libbz2-1.0",
+        "libattr1",
+        "libacl1",
+        "tar",
+        "dpkg",
+        "install-info",
+        "readline-common",
+        "libreadline7",
+        "odbcinst1debian2",
+        "libodbc1",
+        "unixodbc",
     ],
     # Takes the first package found: security updates should go first
     # If there was a security fix to a package before the stable release, this will find
